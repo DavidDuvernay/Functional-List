@@ -35,19 +35,7 @@ ListNode.prototype.isEmpty = function() { /* implement this */
     return false;
 };
 ListNode.prototype.toString = function() { /* implement this */ 
-  
-  let node = this;
-  let acc = '';
-
-  while(!(node instanceof EmptyList)){
-    
-    acc += node.value + ' '
-    node = node.next;
-
-  }
-
-  return `(${acc.trim()})`
-
+  return `(${toString(this).trim()})`
 };
 
 ListNode.prototype.head = function() { /* implement this */ 
@@ -62,15 +50,43 @@ ListNode.prototype.length = function() { /* implement this */
 ListNode.prototype.push = function(x) { /* implement this */ 
     return new ListNode(x, this)
 };
-ListNode.prototype.remove = function(x) { /* implement this */ };
+ListNode.prototype.remove = function(x) { /* implement this */ 
+  let node = this;
+  
+  if(node.value === x){
+  
+    return node.next.remove(x)
+  }
+  node.next
+  return new ListNode(node.value, node.next.remove(x))
+};
 ListNode.prototype.append = function(xs) { /* implement this */ 
-    
     let node = this;
     
     return new ListNode(node.value, node.next.append(xs))
-    
 };
 
-const myList = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new EmptyList()))));
+const toString = (node) => {
+  
+  if(!(node instanceof EmptyList)){
+    
+    return `${node.value} ${toString(node.next)}`
+  }
 
-console.log(myList.toString());
+  return ''
+};
+
+const contains = (node, x) => {
+
+  if(node.value === x){
+    
+    return true
+  }
+  
+};
+
+const myList = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(2, new EmptyList()))));
+
+console.log(myList.remove(2).toString());
+
+//  1 2 3 2 3
