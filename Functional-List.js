@@ -35,7 +35,19 @@ ListNode.prototype.isEmpty = function() { /* implement this */
     return false;
 };
 ListNode.prototype.toString = function() { /* implement this */ 
+  
+  let node = this;
+  let acc = '';
+
+  while(!(node instanceof EmptyList)){
     
+    acc += node.value + ' '
+    node = node.next;
+
+  }
+
+  return `(${acc.trim()})`
+
 };
 
 ListNode.prototype.head = function() { /* implement this */ 
@@ -45,15 +57,7 @@ ListNode.prototype.tail = function() { /* implement this */
     return this.next
 };
 ListNode.prototype.length = function() { /* implement this */ 
-    
-    let next = this.next;
-    let counter = 1;
-
-    while( !( next instanceof EmptyList ) ){
-        next = next.next;
-        counter ++;
-    } 
-    return counter;
+    return this.next.length() + 1;
 };
 ListNode.prototype.push = function(x) { /* implement this */ 
     return new ListNode(x, this)
@@ -64,20 +68,9 @@ ListNode.prototype.append = function(xs) { /* implement this */
     let node = this;
     
     return new ListNode(node.value, node.next.append(xs))
-
-    while( !( node.next instanceof EmptyList ) ){
-        
-        node = node.next;
-
-    }
     
 };
 
 const myList = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new EmptyList()))));
 
-console.log(myList.tail().tail().append(myList.tail().tail().tail()));
-
-
-
-// EmptyList.push(1) => ListNode{value: 1, next: EmptyList}
-// create {} => !=1 
+console.log(myList.toString());
